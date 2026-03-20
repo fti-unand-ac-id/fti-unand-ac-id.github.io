@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fakultas Teknologi Informasi Universitas Andalas</title>
+<meta name="google-site-verification" content="SrTZawFSaLAONuV52vjH13dAEw3zOeO0J7W9G7wwpi8" />
+	<link href="https://fti.unand.ac.id/templates/ja_university_t3/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Open Sans', sans-serif; font-size: 13px; color: #333; background: #f0f0f0; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* ===== TOP STRIP ===== */
+.top-strip { background: #01903e; padding: 5px 0; font-size: 11.5px; color: #b8ceee; }
+.top-strip .inner { max-width: 1180px; margin: 0 auto; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; }
+.top-strip .links a { color: #b8ceee; margin-right: 14px; }
+.top-strip .links a:hover { color: #fff; }
+.top-strip .links i { margin-right: 4px; font-size: 11px; }
+.top-strip .socials a { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.12); color: #b8ceee; margin-left: 5px; font-size: 12px; transition: background .2s, color .2s; }
+.top-strip .socials a:hover { background: #f7941d; color: #fff; }
+
+/* ===== TICKER ===== */
+.ticker { background: #072313; color: #fff; font-size: 12.5px; overflow: hidden; height: 30px; display: flex; align-items: center; }
+.ticker .lbl { background: #f7941d; flex-shrink: 0; padding: 0 14px; height: 100%; display: flex; align-items: center; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-right: 10px; white-space: nowrap; }
+.ticker marquee a { color: #ffe89e; font-weight: 600; }
+
+/* ===== HEADER ===== */
+.site-header { background: #fff; border-bottom: 4px solid #01903e; padding: 10px 0; }
+.site-header .inner { max-width: 1180px; margin: 0 auto; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; }
+.logo-wrap { display: flex; align-items: center; gap: 14px; }
+.logo-wrap img.logo { width: 80px; height: 80px; object-fit: contain; }
+.logo-wrap .brand h1 { font-size: 17px; color: #01903e; font-weight: 700; line-height: 1.25; }
+.logo-wrap .brand p { font-size: 11.5px; color: #777; margin-top: 3px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.search-box { display: flex; border: 1px solid #ccc; border-radius: 3px; overflow: hidden; }
+.search-box input { border: none; outline: none; padding: 5px 10px; font-size: 12px; width: 200px; font-family: inherit; }
+.search-box button { background: #01903e; color: #fff; border: none; padding: 0 12px; cursor: pointer; font-size: 13px; transition: background .2s; }
+.search-box button:hover { background: #f7941d; }
+.badges { display: flex; gap: 8px; }
+.badge { background: #01903e; color: #fff; padding: 5px 12px; border-radius: 3px; font-size: 11px; font-weight: 700; text-align: center; line-height: 1.3; }
+.badge span { display: block; font-weight: 400; font-size: 10px; opacity: .85; }
+
+/* ===== NAVBAR ===== */
+.navbar { background: #01903e; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+.navbar .inner { max-width: 1180px; margin: 0 auto; padding: 0 12px; display: flex; align-items: stretch; }
+.nav-item { position: relative; }
+.nav-item > a, .nav-item > .nav-toggle { display: flex; align-items: center; gap: 4px; padding: 13px 13px; color: #fff; font-size: 12.5px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background .18s; line-height: 1; }
+.nav-item > .nav-toggle::after { content: '▾'; font-size: 10px; }
+.nav-item:hover > a, .nav-item:hover > .nav-toggle { background: #f7941d; }
+.dropdown { display: none; position: absolute; top: 100%; left: 0; background: #01903e; min-width: 215px; border-top: 3px solid #f7941d; box-shadow: 0 6px 18px rgba(0,0,0,.35); z-index: 9999; }
+.nav-item:hover > .dropdown { display: block; }
+.dropdown a { display: block; padding: 8px 16px; color: #b8ceee; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,.06); transition: background .15s, color .15s; }
+.dropdown a:hover { background: #f7941d; color: #fff; }
+.dd-group { background: rgba(255,255,255,.09); color: #f7d08a; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 6px 16px 5px; pointer-events: none; }
+.dd-item { position: relative; }
+.dd-item > a::after { content: ' ›'; float: right; }
+.sub-drop { display: none; position: absolute; left: 100%; top: 0; background: #01903e; min-width: 190px; border-top: 3px solid #f7941d; box-shadow: 6px 6px 18px rgba(0,0,0,.3); }
+.dd-item:hover > .sub-drop { display: block; }
+
+/* ===== HERO SLIDER ===== */
+.hero { position: relative; width: 100%; height: 410px; background: #001f47; overflow: hidden; }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; pointer-events: none; }
+.slide.active { opacity: 1; pointer-events: auto; }
+.slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.55); }
+.slide .caption { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px 20px; color: #fff; }
+.slide .caption h2 { font-size: 28px; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,.6); max-width: 700px; line-height: 1.3; margin-bottom: 10px; }
+.slide .caption p { font-size: 14px; opacity: .9; max-width: 580px; line-height: 1.6; text-shadow: 0 1px 4px rgba(0,0,0,.5); margin-bottom: 18px; }
+.slide .caption a.btn { background: #f7941d; color: #fff; padding: 9px 22px; border-radius: 3px; font-weight: 700; font-size: 12px; transition: background .2s; }
+.slide .caption a.btn:hover { background: #e07b0a; }
+.hero-prev, .hero-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,.35); color: #fff; border: none; width: 38px; height: 38px; cursor: pointer; font-size: 18px; z-index: 10; transition: background .2s; display: flex; align-items: center; justify-content: center; }
+.hero-prev { left: 10px; }
+.hero-next { right: 10px; }
+.hero-prev:hover, .hero-next:hover { background: #f7941d; }
+.hero-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; z-index: 10; }
+.hero-dots button { width: 11px; height: 11px; border-radius: 50%; border: none; background: rgba(255,255,255,.45); cursor: pointer; transition: background .2s; }
+.hero-dots button.active { background: #f7941d; }
+
+/* ===== PAGE BODY ===== */
+.page-body { max-width: 1180px; margin: 18px auto; padding: 0 12px; display: grid; grid-template-columns: 1fr 295px; gap: 18px; }
+
+/* ===== SECTION HEADER ===== */
+.sec-hdr { background: #01903e; color: #fff; padding: 8px 14px; font-size: 13.5px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.sec-hdr i { color: #f7941d; }
+.more-bar { background: #f5f5f5; border-top: 1px solid #e0e0e0; padding: 5px 12px; text-align: right; }
+.more-bar a { font-size: 11.5px; color: #01903e; font-weight: 600; }
+.more-bar a:hover { color: #f7941d; }
+
+/* ===== STAT STRIP ===== */
+.stat-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 16px; }
+.stat-card { background: #fff; border-top: 3px solid #01903e; padding: 14px 10px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.stat-card i { font-size: 24px; color: #f7941d; margin-bottom: 6px; }
+.stat-card .n { font-size: 26px; font-weight: 700; color: #01903e; line-height: 1; }
+.stat-card .l { font-size: 11px; color: #666; margin-top: 3px; }
+
+/* ===== DEPT CARDS ===== */
+.dept-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+.dept-card { background: #fff; border-top: 4px solid #f7941d; padding: 15px 12px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.08); cursor: pointer; transition: transform .2s, box-shadow .2s; }
+.dept-card:hover { transform: translateY(-3px); box-shadow: 0 5px 14px rgba(0,0,0,.12); }
+.dept-card i { font-size: 30px; color: #01903e; margin-bottom: 8px; }
+.dept-card h4 { font-size: 12.5px; font-weight: 700; color: #01903e; margin-bottom: 5px; }
+.dept-card p { font-size: 11px; color: #666; line-height: 1.5; }
+
+/* ===== NEWS GRID ===== */
+.news-section { margin-bottom: 16px; background: #fff; border: 1px solid #ddd; }
+.news-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.news-item { display: flex; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #eee; border-right: 1px solid #eee; cursor: pointer; transition: background .15s; }
+.news-item:nth-child(2n) { border-right: none; }
+.news-item:hover { background: #f0f6ff; }
+.news-thumb { flex-shrink: 0; width: 80px; height: 60px; overflow: hidden; border-radius: 2px; background: #dde6f5; display: flex; align-items: center; justify-content: center; }
+.news-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.news-thumb .icon { font-size: 22px; color: #01903e; }
+.news-body { flex: 1; overflow: hidden; }
+.news-body h4 { font-size: 12px; font-weight: 700; color: #01903e; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 3px; }
+.news-body .date { font-size: 10.5px; color: #999; }
+.news-body p { font-size: 11px; color: #555; line-height: 1.45; margin-top: 3px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ===== AGENDA ===== */
+.agenda-section { background: #fff; border: 1px solid #ddd; margin-bottom: 16px; }
+.agenda-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-bottom: 1px solid #eee; cursor: pointer; transition: background .15s; }
+.agenda-item:last-child { border-bottom: none; }
+.agenda-item:hover { background: #f0f6ff; }
+.agenda-cal { background: #01903e; color: #fff; width: 46px; flex-shrink: 0; text-align: center; padding: 5px 0; border-radius: 2px; }
+.agenda-cal .day { font-size: 20px; font-weight: 700; line-height: 1; }
+.agenda-cal .mon { font-size: 9.5px; text-transform: uppercase; letter-spacing: .3px; }
+.agenda-info h5 { font-size: 12px; font-weight: 600; color: #01903e; line-height: 1.4; }
+.agenda-info .meta { font-size: 11px; color: #888; margin-top: 2px; }
+
+/* ===== SIDEBAR ===== */
+.sidebar > * { margin-bottom: 16px; }
+.quick-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #ddd; border-top: none; }
+.ql-btn { background: #fff; padding: 13px 8px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: background .15s; }
+.ql-btn:nth-child(2n) { border-right: none; }
+.ql-btn i { display: block; font-size: 22px; color: #f7941d; margin-bottom: 5px; }
+.ql-btn span { font-size: 11px; font-weight: 600; color: #01903e; }
+.ql-btn:hover { background: #01903e; }
+.ql-btn:hover i { color: #ffe082; }
+.ql-btn:hover span { color: #fff; }
+.sb-box { background: #fff; border: 1px solid #ddd; border-top: none; overflow: hidden; }
+.sb-list li a { display: flex; gap: 8px; align-items: flex-start; padding: 8px 12px; font-size: 12px; color: #333; border-bottom: 1px solid #f2f2f2; transition: background .12s; }
+.sb-list li:last-child a { border-bottom: none; }
+.sb-list li a:hover { background: #f0f6ff; color: #01903e; }
+.sb-list li a i { color: #f7941d; flex-shrink: 0; margin-top: 2px; font-size: 11px; }
+.photo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; padding: 8px; background: #fff; border: 1px solid #ddd; border-top: none; }
+.photo-cell { aspect-ratio: 1; background: #dde6f5; overflow: hidden; cursor: pointer; border-radius: 1px; display: flex; align-items: center; justify-content: center; transition: opacity .15s; }
+.photo-cell img { width: 100%; height: 100%; object-fit: cover; }
+.photo-cell:hover { opacity: .78; }
+.photo-cell i { font-size: 24px; color: #01903e; }
+
+/* ===== FOOTER ===== */
+.footer-main { background: #072313; color: #a8c0de; padding: 36px 0 20px; margin-top: 20px; }
+.footer-main .inner { max-width: 1180px; margin: 0 auto; padding: 0 12px; display: grid; grid-template-columns: 2fr 1.4fr 1.4fr 1.4fr; gap: 28px; }
+.fc h5 { color: #fff; font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 2px solid #f7941d; }
+.fc ul li { margin-bottom: 5px; }
+.fc ul li a { font-size: 12px; color: #a8c0de; display: flex; gap: 6px; align-items: flex-start; transition: color .15s; }
+.fc ul li a:hover { color: #fff; }
+.fc ul li a i { color: #f7941d; flex-shrink: 0; margin-top: 2px; font-size: 10px; }
+.footer-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.footer-logo-row img { width: 58px; height: 58px; object-fit: contain; }
+.footer-brand { font-size: 13px; color: #fff; font-weight: 700; line-height: 1.35; }
+.ct-row { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; margin-bottom: 8px; }
+.ct-row i { color: #f7941d; flex-shrink: 0; margin-top: 2px; font-size: 11px; }
+.f-socials { display: flex; gap: 8px; margin-top: 12px; }
+.f-socials a { width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.12); color: #a8c0de; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: background .2s, color .2s; }
+.f-socials a:hover { background: #f7941d; color: #fff; }
+.footer-bottom { background: #003028; color: #7090b8; font-size: 12px; text-align: center; padding: 11px 0; }
+.footer-bottom a { color: #90b0d8; }
+.footer-bottom a:hover { color: #fff; }
+
+/* ===== RESIZABLE IMAGE ===== */
+.resizable-img-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  cursor: default;
+}
+.resizable-img-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.resize-handle {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  background: #f7941d;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  cursor: se-resize;
+  z-index: 10;
+  box-shadow: 0 1px 4px rgba(0,0,0,.35);
+  transition: background .15s;
+}
+.resize-handle::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; right: 2px;
+  width: 5px; height: 5px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+.resize-handle:hover { background: #e07b0a; }
+#headerLogoWrap { width: 80px; height: 80px; }
+#footerLogoWrap  { width: 58px; height: 58px; flex-shrink: 0; }
+
+/* ===== RESIZABLE IMAGES ===== */
+img.resizable-img {
+  cursor: nwse-resize;
+  position: relative;
+  box-sizing: border-box;
+  transition: outline .15s;
+}
+img.resizable-img:hover {
+  outline: 2px dashed #f7941d;
+  outline-offset: 2px;
+}
+img.resizable-img.resizing {
+  outline: 2px solid #f7941d;
+  outline-offset: 2px;
+  user-select: none;
+}
+/* resize tooltip */
+.resize-tooltip {
+  position: fixed;
+  background: rgba(0,53,114,0.85);
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 99999;
+  display: none;
+  white-space: nowrap;
+}
+/* resize handle indicator on hover */
+img.resizable-img::after {
+  content: '';
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:920px){ .page-body { grid-template-columns: 1fr; } .footer-main .inner { grid-template-columns: 1fr 1fr; } .stat-strip { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:600px){ .logo-wrap .brand h1 { font-size: 14px; } .hero { height: 240px; } .slide .caption h2 { font-size: 18px; } .dept-strip { grid-template-columns: 1fr; } .news-grid { grid-template-columns: 1fr; } .footer-main .inner { grid-template-columns: 1fr; } .badges { flex-wrap: wrap; } .header-right { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- TOP STRIP -->
+<div class="top-strip">
+  <div class="inner">
+    <div class="links">
+      <a href="https://fti.unand.ac.id/en/"><i class="fas fa-home"></i>Beranda</a>
+      <a href="#"><i class="fas fa-envelope"></i>Kontak</a>
+      <a href="#"><i class="fas fa-sitemap"></i>Peta Situs</a>
+      <a href="#"><i class="fas fa-search"></i>Pencarian</a>
+    </div>
+    <div class="socials">
+      <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="lbl">Pengumuman</div>
+  <marquee behavior="scroll" direction="left" scrollamount="4">
+    Jadwal Kuliah Semester Ganjil T.A 2025/2026 &nbsp;
+    <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/jadwal-kuliah/jadwal-kuliah.html">KLIK DISINI</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    Pendaftaran Wisuda Periode I Tahun 2026 segera dibuka — Hubungi Bagian Akademik
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    Seminar Nasional Teknologi Informasi FTI Unand 2026 — Daftar Sekarang!
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    Beasiswa Unggulan Kemendikbudristek 2026 — Segera daftar sebelum batas waktu
+  </marquee>
+</div>
+
+<!-- HEADER -->
+<div class="site-header">
+  <div class="inner">
+    <div class="logo-wrap">
+      <img class="logo" src="https://fti.unand.ac.id/images/Logo/fti08.png" alt="Logo Fisika UNPAD" style="height:64px;width:auto;">
+    </div>
+    <div class="header-right">
+      <div class="search-box">
+        <input type="text" placeholder="Cari artikel, berita, dokumen...">
+        <button type="button"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="badges">
+        <div class="badge">A<span>BAN-PT</span></div>
+        <div class="badge">UNGGUL<span>Sistem Informasi</span></div>
+        <div class="badge">UNGGUL<span>Teknik Komputer</span></div>
+        <div class="badge">A<span>Informatika</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="inner">
+    <div class="nav-item"><a href="https://fti.unand.ac.id/en/">Beranda</a></div>
+
+    <div class="nav-item">
+      <span class="nav-toggle">PROFIL</span>
+      <div class="dropdown">
+        <div class="dd-group">Selayang Pandang</div>
+        <a href="https://fti.unand.ac.id/en/profil/selayang-pandang/visi-dan-misi.html">Visi dan Misi</a>
+        <a href="https://fti.unand.ac.id/en/profil/selayang-pandang/tujuan-dan-sasaran.html">Tujuan</a>
+        <a href="https://fti.unand.ac.id/en/profil/selayang-pandang/struktur-organisasi.html">Struktur Organisasi</a>
+        <a href="https://fti.unand.ac.id/en/profil/selayang-pandang/video.html">Video</a>
+        <div class="dd-group">SDM</div>
+        <a href="https://fti.unand.ac.id/en/profil/sejarah/dosen.html">Dosen</a>
+        <a href="https://fti.unand.ac.id/en/profil/sejarah/staff-tenaga-kependidikan.html">Tenaga Kependidikan</a>
+        <a href="https://fti.unand.ac.id/en/profil/sejarah/pimpinan.html">Pimpinan</a>
+        <a href="https://fti.unand.ac.id/en/profil/sejarah/dosen-terdaftar-sinta.html">Dosen Terdaftar SINTA</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-toggle">AKADEMIK</span>
+      <div class="dropdown">
+        <div class="dd-group">Kurikulum</div>
+        <a href="https://fti.unand.ac.id/en/akademik/kurikulum.html">Kurikulum</a>
+        <a href="https://fti.unand.ac.id/en/akademik/kurikulum/semester-1.html">Kalender Akademik</a>
+        <a href="https://fti.unand.ac.id/en/akademik/kurikulum/sistem-informasi.html">Sistem Informasi</a>
+        <a href="https://fti.unand.ac.id/en/akademik/kurikulum/sistem-komputer.html">Teknik Komputer</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-toggle">INFORMASI</span>
+      <div class="dropdown">
+        <a href="https://fti.unand.ac.id/en/informasi/pertemuan-ilmiah.html">Pertemuan Ilmiah</a>
+        <a href="https://fti.unand.ac.id/en/informasi/peraturan-peraturan.html">Peraturan Peraturan</a>
+        <a href="https://fti.unand.ac.id/en/informasi/statistik.html">Statistik</a>
+        <a href="https://fti.unand.ac.id/en/component/k2/item/267-statistik-dosen">Data Dosen</a>
+        <a href="https://fti.unand.ac.id/en/component/k2/item/268-data-mahasiswa">Data Mahasiswa</a>
+        <a href="https://fti.unand.ac.id/en/component/k2/item/269-akademik-mahasiswa">Akademik Mahasiswa</a>
+        <a href="https://fti.unand.ac.id/en/informasi/berita-dan-peristiwa.html">BERITA</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-toggle">WEB CORNER</span>
+      <div class="dropdown">
+        <a href="https://unand.ac.id/" target="_blank">Universitas Andalas</a>
+        <a href="http://pustaka.unand.ac.id/" target="_blank">Perpustakaan Pusat</a>
+        <a href="http://ce.fti.unand.ac.id" target="_blank">Departemen Teknik Komputer</a>
+        <a href="http://si.fti.unand.ac.id/" target="_blank">Departemen Sistem Informasi</a>
+        <a href="http://if.fti.unand.ac.id" target="_blank">Departemen Informatika</a>
+        <a href="https://simoli.fti.unand.ac.id/" target="_blank">SIMOLI</a>
+        <a href="http://simpeg.unand.ac.id/" target="_blank">SIMPEG</a>
+        <a href="http://pustaka.fti.unand.ac.id/" target="_blank">Perpustakaan FTI</a>
+        <a href="https://teknosi.fti.unand.ac.id/index.php/teknosi" target="_blank">Jurnal TEKNOSI</a>
+        <a href="http://jitce.fti.unand.ac.id" target="_blank">Jurnal JITCE</a>
+        <a href="http://chipset.fti.unand.ac.id" target="_blank">Jurnal CHIPSET</a>
+        <a href="http://simoli.fti.unand.ac.id/auth" target="_blank">SIMOLI (Auth)</a>
+        <a href="http://bem.fti.unand.ac.id" target="_blank">BEM KM-FTI</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-toggle">PPID</span>
+      <div class="dropdown">
+        <div class="dd-group">Profil</div>
+        <a href="https://fti.unand.ac.id/en/ppid/sk-ppid-fti-unand.html">SK PPID FTI UNAND</a>
+        <a href="https://fti.unand.ac.id/en/ppid/profil-ppid.html">Profil PPID</a>
+        <a href="https://fti.unand.ac.id/en/profil/selayang-pandang/visi-dan-misi.html">Visi Misi</a>
+        <a href="https://fti.unand.ac.id/en/profil/selayang-pandang/struktur-organisasi.html">Struktur Organisasi</a>
+        <a href="https://fti.unand.ac.id/en/ppid/keputusan-rektor.html">Tugas dan Fungsi PPID</a>
+        <a href="https://fti.unand.ac.id/en/ppid/maklumat.html">Maklumat</a>
+        <div class="dd-group">Layanan Informasi</div>
+        <a href="https://ppid.unand.ac.id/index.php/layanan-informasi/tata-cara-permohonan-informasi" target="_blank">Tata Cara Permohonan Informasi</a>
+        <a href="https://fti.unand.ac.id/en/ppid/formulir-permohonan-informasi-publik.html">Formulir Permohonan Informasi Publik</a>
+        <a href="https://ppid.unand.ac.id/index.php/layanan-informasi/tata-cara-pengajuan-keberatan" target="_blank">Tata Cara Pengajuan Keberatan</a>
+        <a href="https://ppid.unand.ac.id/index.php/layanan-informasi/tata-cara-penyelesaian-sengketa-informasi" target="_blank">Tata Cara Penyelesaian Sengketa</a>
+        <div class="dd-group">Informasi Publik</div>
+        <a href="https://fti.unand.ac.id/en/ppid/informasi-yang-wajib-disediakan-berkala.html">Informasi wajib disediakan (Berkala)</a>
+        <a href="https://fti.unand.ac.id/en/ppid/informasi-yang-wajib-tersedia-setiap-saat.html">Informasi Wajib Tersedia Setiap Saat</a>
+        <a href="https://fti.unand.ac.id/en/ppid/informasi-serta-merta.html">Informasi Serta Merta</a>
+        <a href="https://fti.unand.ac.id/en/ppid/daftar-informasi-publik.html">Daftar Informasi Publik</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-toggle">LAYANAN</span>
+      <div class="dropdown">
+        <div class="dd-group">Akademik &amp; Kemahasiswaan</div>
+        <a href="https://forms.office.com/r/zERLHWAmya" target="_blank">Surat Keterangan Aktif Kuliah</a>
+        <a href="https://forms.gle/fFJX4pAbmn2ZzSe67" target="_blank">Surat Keterangan Lulus</a>
+        <a href="https://forms.office.com/r/zTvPaWMDed" target="_blank">Legalisir Ijazah &amp; Transkrip Nilai</a>
+        <a href="https://forms.office.com/r/iGy854py3R" target="_blank">Pengembalian UKT</a>
+        <a href="https://forms.office.com/r/563ir0Ux9D" target="_blank">Pengunduran Diri / Pindah Mahasiswa</a>
+        <div class="dd-group">Umum</div>
+        <a href="https://forms.office.com/r/9HPT7q2cyx" target="_blank">Peminjaman Alat &amp; Inventaris Fakultas</a>
+        <a href="#">Peminjaman Ruangan &amp; Lokasi Fakultas</a>
+        <a href="#">Pemeliharaan &amp; Perbaikan Sarpras</a>
+        <div class="dd-group">Lainnya</div>
+        <a href="#">Kepegawaian</a>
+        <a href="#">Keuangan</a>
+        <a href="https://fti.unand.ac.id/en/form-layanan/download.html">Contoh Surat Permohonan</a>
+        <a href="https://fti.unand.ac.id/en/form-layanan/syarat-pengurusan-dokumen.html">Syarat Pengurusan Dokumen</a>
+        <a href="https://fti.unand.ac.id/en/form-layanan/standar-layanan.html">Standar Layanan</a>
+        <a href="https://forms.office.com/r/cuarE79XQ9" target="_blank">Saran atau Keluhan</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-toggle">DOWNLOAD</span>
+      <div class="dropdown">
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/surat-keputusan-dekan.html">Surat Keputusan Dekan</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/jadwal-kuliah/jadwal-kuliah.html">Jadwal Kuliah</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/jadwal-kuliah/jadwal-ujian.html">Jadwal Ujian</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/dokumen-lainnya.html">Dokumen Lainnya</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/buku-pedoman-akademik-tahun-2019/tahun-2025.html">Buku Pedoman Akademik 2025</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/buku-pedoman-akademik-tahun-2019/tahun-2021.html">Buku Pedoman Akademik 2022</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/buku-pedoman-akademik-tahun-2019/tahun-2019.html">Buku Pedoman Akademik 2021</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/buku-pedoman-akademik-tahun-2019/tahun-2022.html">Buku Pedoman Akademik 2019</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/sertifikat-akreditasi.html">Sertifikat Akreditasi</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/rencana-bisnis-unand-2020-2024.html">Rencana Bisnis UNAND 2020-2024</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/road-map-penelitian-dan-pengabdian-kepada-masyarakat-fti-tahun-2022-2026.html">Road Map Penelitian FTI 2022-2026</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/sop.html">SOP</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/sk-kip.html">SK KIP</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/panduan-k3l7.html">Panduan K3L</a>
+        <a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/sop-darurat.html">SOP Darurat Bencana K3L</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-toggle">DATA</span>
+      <div class="dropdown">
+        <a href="https://fti.unand.ac.id/en/data-fti/alumni.html">Alumni</a>
+        <a href="https://fti.unand.ac.id/en/data-fti/daftar-wisudawan-wisudawati-fti.html">Wisuda</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- HERO SLIDER — images loaded directly from fti.unand.ac.id -->
+<div class="hero">
+  <div class="slide active">
+    <img src="https://fti.unand.ac.id/images/slider/1.jpg" alt="Slider 1"
+         onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#001f47 0%,#01903e 60%,#005ba8 100%)'">
+    <div class="caption">
+      <h2>Selamat Datang di Fakultas Teknologi Informasi</h2>
+      <p>Universitas Andalas — Mendidik Insan Digital Indonesia yang Inovatif dan Berdaya Saing Global</p>
+      <a href="https://fti.unand.ac.id/en/" class="btn">Selengkapnya</a>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="https://fti.unand.ac.id/images/slider/2.jpg" alt="Slider 2"
+         onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#01903e 0%,#005ba8 100%)'">
+    <div class="caption">
+      <h2>Program Studi Unggulan Terakreditasi BAN-PT</h2>
+      <p>Sistem Informasi, Teknik Komputer, dan Informatika — Mencetak lulusan unggul siap kerja</p>
+      <a href="https://fti.unand.ac.id/en/akademik/kurikulum.html" class="btn">Program Studi</a>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="https://fti.unand.ac.id/images/slider/3.jpg" alt="Slider 3"
+         onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#001030 0%,#01903e 100%)'">
+    <div class="caption">
+      <h2>Penelitian &amp; Pengabdian kepada Masyarakat</h2>
+      <p>Menghasilkan inovasi teknologi informasi untuk pembangunan bangsa dan kesejahteraan masyarakat</p>
+      <a href="https://fti.unand.ac.id/en/informasi/pertemuan-ilmiah.html" class="btn">Info Penelitian</a>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="https://fti.unand.ac.id/images/slider/4.jpg" alt="Slider 4"
+         onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#003550 0%,#005070 100%)'">
+    <div class="caption">
+      <h2>Laboratorium Canggih &amp; Fasilitas Modern</h2>
+      <p>12 laboratorium berteknologi terkini untuk mendukung proses pembelajaran dan riset mahasiswa</p>
+      <a href="https://fti.unand.ac.id/en/" class="btn">Fasilitas Kami</a>
+    </div>
+  </div>
+  <button class="hero-prev" onclick="changeSlide(-1)">&#10094;</button>
+  <button class="hero-next" onclick="changeSlide(1)">&#10095;</button>
+  <div class="hero-dots">
+    <button class="active" onclick="goSlide(0)"></button>
+    <button onclick="goSlide(1)"></button>
+    <button onclick="goSlide(2)"></button>
+    <button onclick="goSlide(3)"></button>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- MAIN COLUMN -->
+  <div>
+
+    <!-- Stats -->
+    <div class="stat-strip">
+      <div class="stat-card"><i class="fas fa-chalkboard-teacher"></i><div class="n">120+</div><div class="l">Dosen</div></div>
+      <div class="stat-card"><i class="fas fa-user-graduate"></i><div class="n">4.200+</div><div class="l">Mahasiswa Aktif</div></div>
+      <div class="stat-card"><i class="fas fa-graduation-cap"></i><div class="n">8.500+</div><div class="l">Alumni</div></div>
+      <div class="stat-card"><i class="fas fa-flask"></i><div class="n">12</div><div class="l">Laboratorium</div></div>
+    </div>
+
+    <!-- Dept -->
+    <div class="dept-strip">
+      <div class="dept-card"><i class="fas fa-database"></i><h4>Sistem Informasi</h4><p>Akreditasi UNGGUL. Mempersiapkan tenaga ahli sistem informasi yang kompeten dan berdaya saing.</p></div>
+      <div class="dept-card"><i class="fas fa-microchip"></i><h4>Teknik Komputer</h4><p>Akreditasi UNGGUL. Menghasilkan insinyur komputer yang handal, inovatif, dan beretika.</p></div>
+      <div class="dept-card"><i class="fas fa-code"></i><h4>Informatika</h4><p>Akreditasi A. Mencetak programmer dan ilmuwan komputer berkualitas internasional.</p></div>
+    </div>
+
+    <!-- News -->
+    <div class="news-section">
+      <div class="sec-hdr"><i class="fas fa-newspaper"></i> Berita dan Peristiwa</div>
+      <div class="news-grid">
+        <div class="news-item">
+          <div class="news-thumb">
+            <img src="https://fti.unand.ac.id/images/berita/berita1.jpg" alt="Berita 1"
+                 onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-newspaper icon&quot;></i>'">
+          </div>
+          <div class="news-body">
+            <h4>FTI Unand Sukses Gelar Seminar Nasional Teknologi Informasi 2025</h4>
+            <div class="date"><i class="fas fa-calendar-alt"></i> 10 Desember 2025</div>
+            <p>Seminar nasional yang digelar FTI Unand berhasil menarik ratusan peserta dari seluruh penjuru Indonesia.</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-thumb">
+            <img src="https://fti.unand.ac.id/images/berita/berita2.jpg" alt="Berita 2"
+                 onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-trophy icon&quot;></i>'">
+          </div>
+          <div class="news-body">
+            <h4>Mahasiswa FTI Raih Juara 1 Kompetisi Teknologi Tingkat Nasional</h4>
+            <div class="date"><i class="fas fa-calendar-alt"></i> 5 Desember 2025</div>
+            <p>Tim mahasiswa Informatika FTI Unand berhasil meraih juara pertama dalam ajang kompetisi bergengsi nasional.</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-thumb">
+            <img src="https://fti.unand.ac.id/images/berita/berita3.jpg" alt="Berita 3"
+                 onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-handshake icon&quot;></i>'">
+          </div>
+          <div class="news-body">
+            <h4>FTI Unand Jalin Kerja Sama dengan Perusahaan Teknologi Internasional</h4>
+            <div class="date"><i class="fas fa-calendar-alt"></i> 28 November 2025</div>
+            <p>Penandatanganan MoU dilaksanakan antara FTI Unand dengan beberapa perusahaan teknologi global terkemuka.</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-thumb">
+            <img src="https://fti.unand.ac.id/images/berita/berita4.jpg" alt="Berita 4"
+                 onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-users icon&quot;></i>'">
+          </div>
+          <div class="news-body">
+            <h4>Workshop Kecerdasan Buatan dan Machine Learning Bagi Mahasiswa Baru</h4>
+            <div class="date"><i class="fas fa-calendar-alt"></i> 20 November 2025</div>
+            <p>Lebih dari 200 mahasiswa baru FTI mengikuti workshop intensif mengenai AI dan machine learning.</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-thumb">
+            <img src="https://fti.unand.ac.id/images/berita/berita5.jpg" alt="Berita 5"
+                 onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-award icon&quot;></i>'">
+          </div>
+          <div class="news-body">
+            <h4>Dosen FTI Unand Berhasil Publikasi di Jurnal Internasional Terindeks Scopus Q1</h4>
+            <div class="date"><i class="fas fa-calendar-alt"></i> 15 November 2025</div>
+            <p>Tiga orang dosen FTI berhasil mempublikasikan hasil riset mereka di jurnal internasional bereputasi tinggi.</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-thumb">
+            <img src="https://fti.unand.ac.id/images/berita/berita6.jpg" alt="Berita 6"
+                 onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-university icon&quot;></i>'">
+          </div>
+          <div class="news-body">
+            <h4>Peresmian Laboratorium Komputasi Canggih Generasi Terbaru FTI Unand</h4>
+            <div class="date"><i class="fas fa-calendar-alt"></i> 8 November 2025</div>
+            <p>FTI Unand resmi membuka laboratorium komputasi berteknologi terkini untuk menunjang proses pembelajaran.</p>
+          </div>
+        </div>
+      </div>
+      <div class="more-bar"><a href="https://fti.unand.ac.id/en/informasi/berita-dan-peristiwa.html">Lihat Semua Berita »</a></div>
+    </div>
+
+    <!-- Agenda -->
+    <div class="agenda-section">
+      <div class="sec-hdr"><i class="fas fa-calendar-check"></i> Agenda Kegiatan</div>
+      <div class="agenda-item">
+        <div class="agenda-cal"><div class="day">25</div><div class="mon">Mar</div></div>
+        <div class="agenda-info"><h5>Ujian Tengah Semester Genap T.A 2025/2026</h5><div class="meta"><i class="fas fa-map-marker-alt"></i> Gedung FTI Unand &nbsp;|&nbsp; <i class="fas fa-clock"></i> 08.00 – 17.00 WIB</div></div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-cal"><div class="day">01</div><div class="mon">Apr</div></div>
+        <div class="agenda-info"><h5>Seminar Tugas Akhir Mahasiswa S1 Periode I 2026</h5><div class="meta"><i class="fas fa-map-marker-alt"></i> Ruang Seminar FTI &nbsp;|&nbsp; <i class="fas fa-clock"></i> 09.00 WIB</div></div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-cal"><div class="day">10</div><div class="mon">Apr</div></div>
+        <div class="agenda-info"><h5>Dies Natalis Fakultas Teknologi Informasi Universitas Andalas ke-15</h5><div class="meta"><i class="fas fa-map-marker-alt"></i> Auditorium Universitas Andalas &nbsp;|&nbsp; <i class="fas fa-clock"></i> 08.00 WIB</div></div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-cal"><div class="day">20</div><div class="mon">Apr</div></div>
+        <div class="agenda-info"><h5>Wisuda Sarjana &amp; Pascasarjana Universitas Andalas Periode I 2026</h5><div class="meta"><i class="fas fa-map-marker-alt"></i> Gedung Serba Guna Unand &nbsp;|&nbsp; <i class="fas fa-clock"></i> 08.00 WIB</div></div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-cal"><div class="day">05</div><div class="mon">Mei</div></div>
+        <div class="agenda-info"><h5>Seminar Nasional Teknologi Informasi FTI Unand 2026</h5><div class="meta"><i class="fas fa-map-marker-alt"></i> Gedung FTI Unand &nbsp;|&nbsp; <i class="fas fa-clock"></i> 08.00 – 17.00 WIB</div></div>
+      </div>
+      <div class="more-bar"><a href="#">Lihat Semua Agenda »</a></div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div>
+      <div class="sec-hdr"><i class="fas fa-bolt"></i> Akses Cepat</div>
+      <div class="quick-grid">
+        <a class="ql-btn" href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/jadwal-kuliah/jadwal-kuliah.html"><i class="fas fa-calendar-alt"></i><span>Jadwal Kuliah</span></a>
+        <a class="ql-btn" href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/jadwal-kuliah/jadwal-ujian.html"><i class="fas fa-file-alt"></i><span>Jadwal Ujian</span></a>
+        <a class="ql-btn" href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/buku-pedoman-akademik-tahun-2019/tahun-2025.html"><i class="fas fa-book-open"></i><span>Pedoman Akademik</span></a>
+        <a class="ql-btn" href="https://simoli.fti.unand.ac.id/" target="_blank"><i class="fas fa-desktop"></i><span>SIMOLI</span></a>
+        <a class="ql-btn" href="http://pustaka.fti.unand.ac.id/" target="_blank"><i class="fas fa-building"></i><span>Perpustakaan</span></a>
+        <a class="ql-btn" href="#"><i class="fas fa-envelope"></i><span>Email FTI</span></a>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-hdr"><i class="fas fa-bullhorn"></i> Pengumuman</div>
+      <div class="sb-box">
+        <ul class="sb-list">
+          <li><a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/jadwal-kuliah/jadwal-kuliah.html"><i class="fas fa-angle-right"></i>Jadwal Kuliah Semester Ganjil T.A 2025/2026</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i>Pengumuman Beasiswa Unggulan Kemendikbudristek 2026</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i>Batas Waktu Pengisian KRS Semester Genap 2025/2026</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i>Program Magang Industri Semester Genap 2026</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i>Pengumuman Sidang Skripsi Periode Maret 2026</a></li>
+          <li><a href="#"><i class="fas fa-angle-right"></i>Hasil Seleksi Asisten Praktikum 2026</a></li>
+        </ul>
+        <div class="more-bar"><a href="#">Lihat Semua »</a></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-hdr"><i class="fas fa-download"></i> Download</div>
+      <div class="sb-box">
+        <ul class="sb-list">
+          <li><a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/buku-pedoman-akademik-tahun-2019/tahun-2025.html"><i class="fas fa-file-pdf"></i>Buku Pedoman Akademik 2025</a></li>
+          <li><a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/sertifikat-akreditasi.html"><i class="fas fa-file-pdf"></i>Sertifikat Akreditasi</a></li>
+          <li><a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/jadwal-kuliah/jadwal-kuliah.html"><i class="fas fa-file-excel"></i>Jadwal Kuliah Genap 2025/2026</a></li>
+          <li><a href="https://fti.unand.ac.id/en/form-layanan/download.html"><i class="fas fa-file-word"></i>Contoh Surat Permohonan</a></li>
+          <li><a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/sop.html"><i class="fas fa-file-pdf"></i>SOP Akademik FTI</a></li>
+          <li><a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/panduan-k3l7.html"><i class="fas fa-file-pdf"></i>Panduan K3L</a></li>
+        </ul>
+        <div class="more-bar"><a href="#">Lihat Semua »</a></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-hdr"><i class="fas fa-images"></i> Galeri Foto</div>
+      <div class="photo-grid">
+        <div class="photo-cell"><img src="https://fti.unand.ac.id/images/gallery/g1.jpg" alt="Gallery 1" onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-university&quot;></i>'"></div>
+        <div class="photo-cell"><img src="https://fti.unand.ac.id/images/gallery/g2.jpg" alt="Gallery 2" onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-users&quot;></i>'"></div>
+        <div class="photo-cell"><img src="https://fti.unand.ac.id/images/gallery/g3.jpg" alt="Gallery 3" onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-laptop-code&quot;></i>'"></div>
+        <div class="photo-cell"><img src="https://fti.unand.ac.id/images/gallery/g4.jpg" alt="Gallery 4" onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-award&quot;></i>'"></div>
+        <div class="photo-cell"><img src="https://fti.unand.ac.id/images/gallery/g5.jpg" alt="Gallery 5" onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-flask&quot;></i>'"></div>
+        <div class="photo-cell"><img src="https://fti.unand.ac.id/images/gallery/g6.jpg" alt="Gallery 6" onerror="this.style.display='none';this.parentNode.innerHTML='<i class=&quot;fas fa-graduation-cap&quot;></i>'"></div>
+      </div>
+      <div class="sb-box" style="border-top:none"><div class="more-bar"><a href="#">Lihat Semua »</a></div></div>
+    </div>
+
+    <div>
+      <div class="sec-hdr"><i class="fas fa-journal-whills"></i> Jurnal FTI Unand</div>
+      <div class="sb-box">
+        <ul class="sb-list">
+          <li><a href="https://teknosi.fti.unand.ac.id/index.php/teknosi" target="_blank"><i class="fas fa-external-link-alt"></i>Jurnal TEKNOSI</a></li>
+          <li><a href="http://jitce.fti.unand.ac.id" target="_blank"><i class="fas fa-external-link-alt"></i>Jurnal JITCE</a></li>
+          <li><a href="http://chipset.fti.unand.ac.id" target="_blank"><i class="fas fa-external-link-alt"></i>Jurnal CHIPSET</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="inner">
+      <div class="fc">
+        <div class="footer-logo-row">
+      <img class="logo" src="https://fti.unand.ac.id/images/Logo/fti08.png" alt="Logo Fisika UNPAD" style="height:34px;width:auto;">
+        </div>
+        <div class="ct-row"><i class="fas fa-map-marker-alt"></i>Kampus Limau Manis, Padang 25163, Sumatera Barat, Indonesia</div>
+        <div class="ct-row"><i class="fas fa-phone"></i>(0751) 72586</div>
+        <div class="ct-row"><i class="fas fa-fax"></i>(0751) 72586</div>
+        <div class="ct-row"><i class="fas fa-envelope"></i><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="482c2d232926082e3c21663d2629262c66292b66212c">[email&#160;protected]</a></div>
+        <div class="f-socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="fc">
+        <h5>Tautan Cepat</h5>
+        <ul>
+          <li><a href="https://fti.unand.ac.id/en/"><i class="fas fa-angle-right"></i>Beranda</a></li>
+          <li><a href="https://fti.unand.ac.id/en/profil/selayang-pandang/visi-dan-misi.html"><i class="fas fa-angle-right"></i>Visi dan Misi</a></li>
+          <li><a href="https://fti.unand.ac.id/en/profil/sejarah/pimpinan.html"><i class="fas fa-angle-right"></i>Pimpinan Fakultas</a></li>
+          <li><a href="https://fti.unand.ac.id/en/akademik/kurikulum.html"><i class="fas fa-angle-right"></i>Akademik</a></li>
+          <li><a href="https://fti.unand.ac.id/en/informasi/berita-dan-peristiwa.html"><i class="fas fa-angle-right"></i>Berita &amp; Peristiwa</a></li>
+          <li><a href="https://fti.unand.ac.id/en/data-fti/alumni.html"><i class="fas fa-angle-right"></i>Alumni</a></li>
+          <li><a href="https://fti.unand.ac.id/en/2019-04-02-04-16-19/sertifikat-akreditasi.html"><i class="fas fa-angle-right"></i>Sertifikat Akreditasi</a></li>
+          <li><a href="https://fti.unand.ac.id/en/ppid/profil-ppid.html"><i class="fas fa-angle-right"></i>PPID</a></li>
+        </ul>
+      </div>
+      <div class="fc">
+        <h5>Departemen</h5>
+        <ul>
+          <li><a href="http://si.fti.unand.ac.id/" target="_blank"><i class="fas fa-angle-right"></i>Sistem Informasi</a></li>
+          <li><a href="http://ce.fti.unand.ac.id" target="_blank"><i class="fas fa-angle-right"></i>Teknik Komputer</a></li>
+          <li><a href="http://if.fti.unand.ac.id" target="_blank"><i class="fas fa-angle-right"></i>Informatika</a></li>
+        </ul>
+        <h5 style="margin-top:16px">Layanan Online</h5>
+        <ul>
+          <li><a href="https://simoli.fti.unand.ac.id/" target="_blank"><i class="fas fa-angle-right"></i>SIMOLI</a></li>
+          <li><a href="http://simpeg.unand.ac.id/" target="_blank"><i class="fas fa-angle-right"></i>SIMPEG</a></li>
+          <li><a href="http://pustaka.fti.unand.ac.id/" target="_blank"><i class="fas fa-angle-right"></i>Perpustakaan FTI</a></li>
+          <li><a href="http://bem.fti.unand.ac.id" target="_blank"><i class="fas fa-angle-right"></i>BEM KM-FTI</a></li>
+        </ul>
+      </div>
+      <div class="fc">
+        <h5>Jurnal Ilmiah</h5>
+        <ul>
+          <li><a href="https://teknosi.fti.unand.ac.id/index.php/teknosi" target="_blank"><i class="fas fa-book"></i>Jurnal TEKNOSI</a></li>
+          <li><a href="http://jitce.fti.unand.ac.id" target="_blank"><i class="fas fa-book"></i>Jurnal JITCE</a></li>
+          <li><a href="http://chipset.fti.unand.ac.id" target="_blank"><i class="fas fa-book"></i>Jurnal CHIPSET</a></li>
+        </ul>
+        <h5 style="margin-top:16px">Link Universitas</h5>
+        <ul>
+          <li><a href="https://unand.ac.id/" target="_blank"><i class="fas fa-external-link-alt"></i>Universitas Andalas</a></li>
+          <li><a href="http://pustaka.unand.ac.id/" target="_blank"><i class="fas fa-external-link-alt"></i>Perpustakaan Pusat</a></li>
+          <li><a href="https://ppid.unand.ac.id/" target="_blank"><i class="fas fa-external-link-alt"></i>PPID Unand</a></li>
+          <li><a href="http://simpeg.unand.ac.id/" target="_blank"><i class="fas fa-external-link-alt"></i>SIMPEG</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Fakultas Teknologi Informasi Universitas Andalas. Hak Cipta Dilindungi.
+    &nbsp;|&nbsp; <a href="#">Kebijakan Privasi</a> &nbsp;|&nbsp; <a href="#">Kontak</a>
+    &nbsp;|&nbsp; Dikembangkan oleh Tim IT FTI Unand
+  </div>
+</footer>
+
+<style>
+/* ===== RESIZABLE IMAGE SYSTEM ===== */
+.img-resize-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  line-height: 0;
+}
+.img-resize-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.img-resize-wrapper.active-resize {
+  outline: 2px dashed #f7941d;
+  outline-offset: 2px;
+  z-index: 100;
+}
+/* 8 resize handles */
+.resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #f7941d;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: none;
+  z-index: 200;
+  box-shadow: 0 1px 4px rgba(0,0,0,.4);
+}
+.img-resize-wrapper.active-resize .resize-handle { display: block; }
+.resize-handle.nw  { top: -5px;  left: -5px;  cursor: nw-resize; }
+.resize-handle.n   { top: -5px;  left: calc(50% - 5px); cursor: n-resize; }
+.resize-handle.ne  { top: -5px;  right: -5px; cursor: ne-resize; }
+.resize-handle.e   { top: calc(50% - 5px); right: -5px; cursor: e-resize; }
+.resize-handle.se  { bottom: -5px; right: -5px; cursor: se-resize; }
+.resize-handle.s   { bottom: -5px; left: calc(50% - 5px); cursor: s-resize; }
+.resize-handle.sw  { bottom: -5px; left: -5px; cursor: sw-resize; }
+.resize-handle.w   { top: calc(50% - 5px); left: -5px; cursor: w-resize; }
+/* Tooltip */
+.img-resize-wrapper .size-tooltip {
+  position: absolute;
+  top: -26px; left: 0;
+  background: rgba(0,0,0,.7);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  white-space: nowrap;
+  display: none;
+  z-index: 300;
+  font-family: monospace;
+}
+.img-resize-wrapper.active-resize .size-tooltip { display: block; }
+/* Reset button */
+.img-resize-wrapper .reset-btn {
+  position: absolute;
+  top: -26px; right: 0;
+  background: #01903e;
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: none;
+  z-index: 300;
+  border: none;
+  font-family: inherit;
+}
+.img-resize-wrapper.active-resize .reset-btn { display: block; }
+.img-resize-wrapper .reset-btn:hover { background: #f7941d; }
+</style>
+
+<script>
+  /* ── Slider ── */
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots   = document.querySelectorAll('.hero-dots button');
+  function goSlide(n) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  function changeSlide(d) { goSlide(cur + d); }
+  setInterval(() => changeSlide(1), 5500);
+
+  /* ── Resizable Images ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    const DIRS = ['nw','n','ne','e','se','s','sw','w'];
+    let activeWrapper = null;
+
+    document.querySelectorAll('img').forEach(img => {
+      if (img.closest('.slide')) return;
+
+      const origParent = img.parentNode;
+      const origNext   = img.nextSibling;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'img-resize-wrapper';
+      origParent.insertBefore(wrap, origNext);
+      wrap.appendChild(img);
+
+      const setNatural = () => {
+        if (!wrap.dataset.origW && wrap.offsetWidth) {
+          wrap.dataset.origW = wrap.offsetWidth;
+          wrap.dataset.origH = wrap.offsetHeight;
+          wrap.style.width  = wrap.offsetWidth  + 'px';
+          wrap.style.height = wrap.offsetHeight + 'px';
+        }
+      };
+      setTimeout(setNatural, 300);
+      img.addEventListener('load', () => setTimeout(setNatural, 50));
+
+      const tip = document.createElement('div');
+      tip.className = 'size-tooltip';
+      wrap.appendChild(tip);
+
+      const rst = document.createElement('button');
+      rst.className = 'reset-btn';
+      rst.textContent = '\u21ba Reset';
+      rst.addEventListener('click', e => {
+        e.stopPropagation();
+        if (wrap.dataset.origW) {
+          wrap.style.width  = wrap.dataset.origW + 'px';
+          wrap.style.height = wrap.dataset.origH + 'px';
+          updateTooltip(wrap, tip);
+        }
+      });
+      wrap.appendChild(rst);
+
+      DIRS.forEach(dir => {
+        const h = document.createElement('div');
+        h.className = 'resize-handle ' + dir;
+        wrap.appendChild(h);
+
+        h.addEventListener('mousedown', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          const startX = e.clientX, startY = e.clientY;
+          const startW = wrap.offsetWidth, startH = wrap.offsetHeight;
+
+          const onMove = mv => {
+            const dx = mv.clientX - startX;
+            const dy = mv.clientY - startY;
+            let nW = startW, nH = startH;
+            if (dir.includes('e')) nW = Math.max(40, startW + dx);
+            if (dir.includes('w')) nW = Math.max(40, startW - dx);
+            if (dir.includes('s')) nH = Math.max(40, startH + dy);
+            if (dir.includes('n')) nH = Math.max(40, startH - dy);
+            wrap.style.width  = nW + 'px';
+            wrap.style.height = nH + 'px';
+            updateTooltip(wrap, tip);
+          };
+          const onUp = () => {
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', onUp);
+          };
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp);
+        });
+      });
+
+      wrap.addEventListener('click', e => {
+        e.stopPropagation();
+        if (activeWrapper && activeWrapper !== wrap) activeWrapper.classList.remove('active-resize');
+        wrap.classList.toggle('active-resize');
+        activeWrapper = wrap.classList.contains('active-resize') ? wrap : null;
+        if (activeWrapper) updateTooltip(wrap, tip);
+      });
+    });
+
+    document.addEventListener('click', () => {
+      if (activeWrapper) { activeWrapper.classList.remove('active-resize'); activeWrapper = null; }
+    });
+
+    function updateTooltip(wrap, tip) {
+      tip.textContent = Math.round(wrap.offsetWidth) + ' x ' + Math.round(wrap.offsetHeight) + ' px';
+    }
+  });
+</script>
+</body>
+</html>
